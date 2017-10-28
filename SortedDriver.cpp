@@ -1,3 +1,7 @@
+// Ana Giljum
+// Oct. 23, 2017
+// COSC 2030
+//
 // SortedDriver.cpp
 
 // tom bailey   1445  25 mar 2014
@@ -63,8 +67,23 @@ getWords(size_t numWords, size_t wordLength, string alphabet)
 double
 mostIsolated(vector<double> & number)
 {
-	// STUB  STUB  STUB
-	return -123.456;
+	//Initialize starting values to compare the distances
+	double distR = abs(number[1] - number[0]);
+	double distL = distR;
+	double temp = number[0];
+	for (int i = 1; i < (number.size() - 1); i++)
+	{
+		//Check if the distances are larger than previous
+		if (((abs(number[i] - number[i - 1])) > distL) && ((abs(number[i + 1] - number[i])) > distR))
+		{
+			//If distances on left and right are larger, that is the new most isolated
+			temp = number[i];
+			//Set new furthest distances on left and right
+			distL = (abs(number[i] - number[i - 1]));
+			distR = (abs(number[i + 1] - number[i]));
+		}
+	}
+	return temp;
 }
 
 
@@ -74,8 +93,27 @@ mostIsolated(vector<double> & number)
 int
 unmatched(list<string> & A, list<string> & B)
 {
-	// STUB  STUB  STUB
-	return -1;
+	//Start count with all values in A
+	int count = A.size();
+	bool found = false;
+	//Check for every value in A
+	for (list<string>::iterator itA = A.begin(); itA != A.end(); itA++)
+	{
+		//Check for every value in B
+		for (list<string>::iterator itB = B.begin(); itB != B.end(); itB++)
+		{
+			//If the value from A is found in B, remove from the count
+			if (*itA == *itB)
+				found = true;
+		}
+		if (found == true)
+		{
+			count--;
+			//Reset found
+			found = false;
+		}
+	}
+	return count;
 }
 
 
